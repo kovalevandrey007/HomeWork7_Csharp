@@ -6,86 +6,84 @@
 8 4 2 4
 Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.*/
 
-/*Задача 51: Задайте двумерный массив. Найдите сумму 
-элементов, находящихся на главной диагонали 
-(с индексами (0,0); (1;1) и т.д.
-Например, задан массив:
-1 4 7 2
-5 9 2 3
-8 4 2 4
-Сумма элементов главной диагонали: 1+9+2 = 12 */
+// 1. функция ввода числа
 
-
-//1. функция ввода числа
-//2. функция задачи рандомного массива
-//3. функция печати массива
-//4.  функция ождения суммы элементов на главной диагонали
-
-
-//1. функция ввода числа
-int GetNumber(string text) 
-{ 
-    int result = 0; 
-    Console.WriteLine(text); 
-    while(true) 
-    { 
-        if (int.TryParse(Console.ReadLine(), out result)) 
-       { 
-        break; 
-        } 
-    } 
-    return result; 
-} 
-
-//функция задачи рандомного 
-int[,]GetMatrix(int m, int n) 
-{ 
-    int [,] matrix = new int [m, n]; 
-    Random rnd = new Random(); 
-    for (int i = 0; i < matrix.GetLength(0); i++) 
-    { 
-        for (int j = 0; j < matrix.GetLength(1); j++) 
-            { 
-                matrix[i, j] = rnd.Next(0,3); 
-            } 
-    } 
-    return matrix; 
-} 
-
-//3. функция печати массива
-void PrintMatrix(int[,] matrix) 
- { 
-    for (int i = 0; i < matrix.GetLength(0); i++) 
-    { 
-        for (int j = 0; j < matrix.GetLength(1); j++)
-        {
-            Console.Write($"{matrix[i, j]} "); 
-        }
-        Console.WriteLine(); 
-     } 
- }
-//4.  функция нахождения суммы элементов на главной диагонали
-int OneArr (int n)
+int GetNumber(string text)
 {
-    int[] massiv = new int[n];
-    //int sum = 0;
-    int mas = 0;
-    for (int j =0; j< n; j++ )
+    int result = 0;
+    Console.WriteLine(text);
+    while (true)
+    {
+        if (int.TryParse(Console.ReadLine(), out result))
         {
-            if(j==0)
-            mas  = massiv[j];
-            j++;
+            break;
         }
-    return mas;
+    }
+    return result;
 }
 
+// 2. функция задачи рандомного массива
+int[,] GetArray(int a, int b)
+{
+    int[,] array = new int[a, b];
+    Random rnd = new Random();
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i, j] = rnd.Next(0, 11);
+        }
+    }
+    return array;
+}
+//3. функция печати массива
+void PrintMatrix(int[,] matrix)
+{
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            Console.Write($"{matrix[i, j]} ");
+        }
+        Console.WriteLine();
+    }
+}
+// 4. функция нахождение среднего арифмитического в каждом столбце
+/*
+int FindSrAr(int[,] myarr, int a, int b);
+{
+    
+    for (int i = 0; i < b; i++)
+    {
+            double sum = 0;
+            for (int j = 0; j < a; j++)
+            {
+                sum += myarr[j, i];
+            }
+            double average = sum / myarr.GetLength(0)+1;
+            int g = i + 1;
+            Console.WriteLine($"Среднее арифмитическое для столбца {g} = {Math.Round(average, 2)}");
+    }
+        return sum;
+ }
+    */
 
-//Вызываем функции
-int numer=  GetNumber("введите количество строк: ");
-int nor =  GetNumber("введите количество столбцов: ");
-int [,] tort = GetMatrix(numer,  nor);
-PrintMatrix(tort);
-int[] massiv = OneArr(mas); 
-//int popil = FindSum (tort);
-Console.WriteLine($"Cумма элементов, находящихся в столбцах = {popil}");
- 
+
+
+int a = GetNumber("введите количество строк: ");
+int b = GetNumber("введите количество столбцов: ");
+int[,] myarr = GetArray(a, b);
+PrintMatrix(myarr);
+
+//не смог решить через метод myarr подчеркивается при тех же условиях
+for (int i = 0; i < b; i++)
+{
+    double summ = 0;
+    for (int j = 0; j < a; j++)
+    {
+        summ += myarr[j, i];
+    }
+    double average = summ / a;
+    int g = i + 1;
+    Console.WriteLine($"Среднее арифмитическое для столбца {g} = {Math.Round(average, 2)}");
+}
